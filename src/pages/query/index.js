@@ -14,7 +14,7 @@ export default function QueryTest() {
         <QueryClientProvider client={queryClient}>
           <Example />
         </QueryClientProvider>
-      )
+      ) 
 }
 
 function Example() {

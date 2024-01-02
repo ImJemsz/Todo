@@ -10,5 +10,5 @@ export default function TodoItem(props) {
       <p className={classNames({'line-through opacity-50': props.task.isChecked}, 'ml-2 w-[300px] break-words')}>{props.task.title}</p>
       <XMarkIcon className='w-5 ml-auto text-slate-600 cursor-pointer' onClick={()=> props.onDelete(props.task.id)}/>
     </div>
-  )
+  ) 
 }

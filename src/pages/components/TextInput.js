@@ -9,7 +9,7 @@ export default function TextInput(props) {
       setTask('')
     }
 
-    setTask('')
+    setTask('') 
   }
   return (
     <div className='flex flex-row'>

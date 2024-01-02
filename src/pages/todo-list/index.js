@@ -16,7 +16,7 @@ export default function todoPage() {
       if (oldItem.id === item.id) {
         oldItem.isChecked = item.isChecked;
       }
-      return oldItem;
+      return oldItem; 
     });
     setItems(result);
   };
