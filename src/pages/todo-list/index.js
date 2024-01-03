@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import TextInput from "../components/TextInput";
 import TodoItem from "../components/TodoItem";
+import { getTodo, postTodo, putTodo, deleteTodo } from "@/hooks/todo.hook";
 
 export default function todoPage() {
   //--------------
   //  CONST
   //--------------
-  const [items, setItems] = useState([]);
+
+  const { isLoading, error, data, refetch } = getTodo();
+
+  const postService = postTodo();
+
+  const putService = putTodo();
+
+  const deleteService = deleteTodo();
+
+  if (isLoading) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
 
   //--------------
   //  HANDLE
   //--------------
-  const onChecked = (item) => {
-    let result = items.map((oldItem) => {
-      if (oldItem.id === item.id) {
-        oldItem.isChecked = item.isChecked;
-      }
-      return oldItem;
-    });
-    setItems(result);
+
+  const onAdd = async (newItem) => {
+    await postService.mutateAsync(newItem);
+    refetch();
   };
 
-  const onDeleteItem = (id) => {
-    const result = items.filter((refItem) => refItem.id !== id);
-    setItems(result);
+  const onChecked = async (updateItem) => {
+    await putService.mutateAsync(updateItem);
+    refetch();
+  };
+
+  const onDeleteItem = async (id) => {
+    await deleteService.mutateAsync(id);
+    refetch();
   };
 
   //--------------
@@ -37,9 +50,9 @@ export default function todoPage() {
             To-Do List <img src="/icon.png" className="w-10 mt-[-10px]" />
           </div>
 
-          <TextInput onChange={(task) => setItems([...items, task])} />
+          <TextInput onChange={onAdd} />
           <div className="flex flex-col gap-y-5">
-            {items.map((item) => (
+            {data.map((item) => (
               <TodoItem
                 task={item}
                 onChange={onChecked}

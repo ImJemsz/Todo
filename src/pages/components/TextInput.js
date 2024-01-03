@@ -5,7 +5,7 @@ export default function TextInput(props) {
   const [task, setTask] = useState('')
   const addTask = () => {
     if(task.trim().length !== 0){
-      props.onChange({title: task, id: Date.now(), isChecked: false})
+      props.onChange({name: task, selected: false})
       setTask('')
     }
 

@@ -21,7 +21,7 @@ function Example() {
     const { isLoading, error, data } = useQuery({
       queryKey: ['repoData'],
       queryFn: () =>
-        fetch('https://my-json-server.typicode.com/typicode/demo/posts').then(
+        fetch('http://10.10.7.156:3001/jame/todos').then(
           (res) => res.json(),
         ),
     })
@@ -30,11 +30,13 @@ function Example() {
   
     if (error) return 'An error has occurred: ' + error.message
   
+    // console.log(data)
+    
     return (
       <div>
         {data.map((d) => (
-            // console.log(d.id)
-            <p key={d.id}>{d.title}</p>
+            console.log(d)
+            // <p key={d.id}>{d.title}</p>
         )
         )}
       </div>
